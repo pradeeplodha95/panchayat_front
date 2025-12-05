@@ -165,52 +165,71 @@ export default function RecordView() {
             const yCenter = node.depth * (nodeHeight + vGap) + 120;
 
             const isDead = node.isDeceased;
-            const textName = isDead ? (node.name + deceasedSuffix) : node.name;
+            const textName = isDead ? `${node.name} (મૈયત)` : node.name;
+            // const deceasedLine = isDead ? `મૃત્યુ તારીખ: ${toGujaratiDigits(node.dodDisplay)}` : "";
 
-            const relationText = `(${node.relation})`;
+
+            let relationText = "";
+
+            if (node.relation) {
+                relationText = `(${node.relation})`;
+            }
+
+            if (!node.isDeceased && !node.isRoot) {
+                relationText += `  ઉંમર: ${toGujaratiDigits(node.age || "")}`;
+            }
+
 
             const bg = isDead ? "#ffe3e3" : "#ffffff";
             const border = isDead ? "#c0392b" : "#000000";
 
             svgNodes += `
-        <rect 
-            x="${node.x}" 
-            y="${yCenter - nodeHeight / 2}"
-            width="${nodeWidth}" 
-            height="${nodeHeight}"
-            rx="10" 
-            ry="10"
-            fill="${bg}"
-            stroke="${border}"
-            stroke-width="2"
-        />
+<rect 
+    x="${node.x}" 
+    y="${yCenter - nodeHeight / 2}"
+    width="${nodeWidth}" 
+    height="${nodeHeight}"
+    rx="10" 
+    ry="10"
+    fill="${bg}"
+    stroke="${border}"
+    stroke-width="2"
+/>
 
-        <!-- NAME (BOLD + UNDERLINE) -->
-        <text 
-            x="${xCenter}" 
-            y="${yCenter - 8}"
-            text-anchor="middle"
-            font-size="18"
-            font-weight="700"
-            text-decoration="underline"
-            font-family="Noto Serif Gujarati"
-        >
-            ${textName}
-        </text>
+<text 
+    x="${xCenter}" 
+    y="${yCenter - 12}"
+    text-anchor="middle"
+    font-size="18"
+    font-weight="700"
+    text-decoration="underline"
+    font-family="Noto Serif Gujarati"
+>${textName}</text>
 
-        <!-- RELATION (BOLD + BRACKETS) -->
-        <text 
-            x="${xCenter}" 
-            y="${yCenter + 22}"
-            text-anchor="middle"
-            font-size="15"
-            font-weight="700"
-            fill="#444"
-            font-family="Noto Serif Gujarati"
-        >
-            ${relationText}
-        </text>
-    `;
+${isDead ? `
+<text 
+    x="${xCenter}" 
+    y="${yCenter + 8}"
+    text-anchor="middle"
+    font-size="14"
+    font-weight="700"
+    fill="#000000"
+    font-family="Noto Serif Gujarati"
+>તારીખ: ${toGujaratiDigits(node.dodDisplay)}</text>
+` : ""}
+
+<text 
+    x="${xCenter}" 
+    y="${isDead ? (yCenter + 28) : (yCenter + 10)}"
+    text-anchor="middle"
+    font-size="15"
+    font-weight="700"
+    fill="#444"
+    font-family="Noto Serif Gujarati"
+>${relationText}</text>
+
+`;
+
 
             if (node.children) {
                 node.children.forEach(child => {
@@ -249,8 +268,6 @@ export default function RecordView() {
         </svg>
     `;
     }
-
-
 
     const handlePedhinamuPrint = async () => {
         try {
@@ -460,8 +477,11 @@ export default function RecordView() {
                 // Build this node
                 const node = {
                     name: person.name,
+                    age: person.age || "",
+                    dodDisplay: person.dodDisplay || "",
                     relation: relationToGujarati(person.relation),
                     isDeceased: person.isDeceased || false,
+                    isRoot: person.isRoot || false,
                     children: []
                 };
 
@@ -475,6 +495,7 @@ export default function RecordView() {
                 if (spouse?.name?.trim()) {
                     node.children.push({
                         name: spouse.name,
+                        age : spouse.age || "",
                         relation: relationToGujarati(spouse.relation),
                         isDeceased: spouse.isDeceased || false,
                         children: []
@@ -498,7 +519,8 @@ export default function RecordView() {
 
             const rootPerson = buildNode({
                 ...pedhinamu.mukhya,
-                relation: "mukhya",
+                relation: "",
+                isRoot: true,
                 spouse: pedhinamu.mukhya.spouse || null,  // if stored
                 children: pedhinamu.heirs                 // main heirs become children of root
             });
