@@ -495,7 +495,7 @@ ${isDead ? `
                 if (spouse?.name?.trim()) {
                     node.children.push({
                         name: spouse.name,
-                        age : spouse.age || "",
+                        age: spouse.age || "",
                         relation: relationToGujarati(spouse.relation),
                         isDeceased: spouse.isDeceased || false,
                         children: []
@@ -611,14 +611,35 @@ ${isDead ? `
                 <SimpleGrid columns={[1, 2]} spacing={5} mt={2}>
                     <Box>
                         <Text fontWeight="600">{t("mukhyoName")}:</Text>
-                        <Text>{pedhinamu.mukhya?.name}</Text>
+
+                        <HStack>
+                            <Text
+                                fontWeight="700"
+                                color={pedhinamu.mukhya.isDeceased ? "red.600" : "black"}
+                                textDecoration={pedhinamu.mukhya.isDeceased ? "line-through" : "none"}
+                            >
+                                {pedhinamu.mukhya.name}
+                            </Text>
+
+                            {pedhinamu.mukhya.isDeceased && (
+                                <Badge colorScheme="red">{t("isDeceasedShort")}</Badge>
+                            )}
+                        </HStack>
                     </Box>
 
                     <Box>
                         <Text fontWeight="600">{t("age")}:</Text>
                         <Text>{pedhinamu.mukhya?.age}</Text>
                     </Box>
+
+                    {pedhinamu.mukhya.isDeceased && (
+                        <Box>
+                            <Text fontWeight="600">મૃત્યુ તારીખ:</Text>
+                            <Text>{pedhinamu.mukhya.dodDisplay || "-"}</Text>
+                        </Box>
+                    )}
                 </SimpleGrid>
+
 
                 {/* ---------------------- HEIRS ---------------------- */}
                 <Heading size="md" mt={8}>{t("heirInfo")}</Heading>
@@ -657,6 +678,11 @@ ${isDead ? `
                             <Divider my={2} />
 
                             <Text><b>{t("age")}:</b> {h.age}</Text>
+                            {h.isDeceased && (
+                                <Text color="red.600" fontWeight="600">
+                                    {t("isDeceasedShort")} • {h.dodDisplay || "-"}
+                                </Text>
+                            )}
 
                             {/* SPOUSE */}
                             {h.subFamily?.spouse?.name?.trim() && (
@@ -680,6 +706,12 @@ ${isDead ? `
 
                                     <Text><b>{t("name")}:</b> {h.subFamily.spouse.name}</Text>
                                     <Text><b>{t("age")}:</b> {h.subFamily.spouse.age || "-"}</Text>
+                                    {h.subFamily.spouse.isDeceased && (
+                                        <Text color="red.600" fontWeight="600">
+                                            {t("isDeceasedShort")} • {h.subFamily.spouse.dodDisplay || "-"}
+                                        </Text>
+                                    )}
+
                                     <Text><b>{t("relation")}:</b> {t(h.subFamily.spouse.relation)}</Text>
                                 </Box>
                             )}
