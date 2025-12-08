@@ -679,10 +679,12 @@ ${isDead ? `
 
                             <Text><b>{t("age")}:</b> {h.age}</Text>
                             {h.isDeceased && (
-                                <Text color="red.600" fontWeight="600">
-                                    {t("isDeceasedShort")} • {h.dodDisplay || "-"}
-                                </Text>
+                                <HStack>
+                                    <Text fontWeight="600" color="black">મૃત્યુ તારીખ:</Text>
+                                    <Text fontWeight="600" color="red.600">{h.dodDisplay || "-"}</Text>
+                                </HStack>
                             )}
+
 
                             {/* SPOUSE */}
                             {h.subFamily?.spouse?.name?.trim() && (
