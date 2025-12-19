@@ -7,6 +7,7 @@ const CameraCapture = ({ onCapture }) => {
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  
   const streamRef = useRef(null);
 
   const startCamera = async () => {
