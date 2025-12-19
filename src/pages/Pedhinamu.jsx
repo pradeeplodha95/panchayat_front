@@ -491,6 +491,7 @@ export default function Pedhinamu() {
                 : `http://localhost:5000/api/pedhinamu`;
 
             const method = isEditMode ? "PUT" : "POST";
+            
 
             const res = await fetch(url, {
                 method,

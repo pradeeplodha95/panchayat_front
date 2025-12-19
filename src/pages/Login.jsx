@@ -30,54 +30,71 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleLogin = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+const handleLogin = async () => {
+  setLoading(true);
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (!data.token) {
-        toast({
-          title: data.message || t("error"),
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-        });
-        setLoading(false);
-        return;
-      }
+    if (data.trialExpired) {
+      setErrorMsg(data.message);
+      setLoading(false);
+      return;
+    }
 
+    if (!data.token) {
       toast({
-        title: t("success"),
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-        position: "top",
-      });
-
-      // delay redirect slightly so toast becomes visible
-      setTimeout(() => {
-        localStorage.setItem("token", data.token);
-        navigate("/dashboard");
-      }, 800);
-    } catch (err) {
-      toast({
-        title: t("error"),
+        title: data.message || t("error"),
         status: "error",
         duration: 3000,
         isClosable: true,
         position: "top",
       });
+      setLoading(false);
+      return;
     }
 
-    setLoading(false);
-  };
+    toast({
+      title: t("success"),
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+      position: "top",
+    });
+
+    // delay redirect slightly so toast becomes visible
+    setTimeout(() => {
+      localStorage.setItem("token", data.token);
+
+      // 👉 NEW: Save username
+      localStorage.setItem("username", data.user?.username || "");
+
+      // Redirect to admin if admin, otherwise dashboard
+      if (data.user?.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
+    }, 800);
+  } catch (err) {
+    console.error(err);
+    toast({
+      title: t("error"),
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
+  }
+
+  setLoading(false);
+};
+
 
 
   return (
@@ -110,7 +127,7 @@ export default function Login() {
             color="#1E4D2B"
             fontWeight="700"
           >
-            {t("appName")}
+            ગ્રામ પંચાયત
           </Heading>
 
           {/* Digital Portal */}
@@ -171,6 +188,35 @@ export default function Login() {
           >
             {t("login")}
           </Button>
+
+          {/* FORGOT PASSWORD LINK */}
+          <Text
+            color="blue.500"
+            fontSize="sm"
+            textAlign="center"
+            cursor="pointer"
+            onClick={() => navigate("/forgot-password")}
+            mt={2}
+          >
+            પાસવર્ડ ભૂલી ગયા છો?
+          </Text>
+
+          {/* REGISTER LINK */}
+         <VStack spacing={2} width="100%" pt={4} borderTop="1px solid #e5e5e5">
+  <Text color="#64748b" fontSize="sm">
+    નવો વપરાશકર્તા છો?
+  </Text>
+  <Button
+    width="100%"
+    variant="outline"
+    colorScheme="blue"
+    size="sm"
+    onClick={() => navigate("/register")}
+  >
+    અહીં નોંધણી કરો
+  </Button>
+</VStack>
+
 
         </VStack>
       </Box>

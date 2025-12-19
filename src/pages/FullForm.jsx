@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
+import CameraCapture from "../components/CameraCapture";
 
 
 const gujaratiToEnglishDigits = (str) => {
@@ -528,14 +529,46 @@ export default function FullForm() {
         };
 
         // -----------------------------
+        // PREPARE FORM DATA FOR FILE UPLOADS
+        // -----------------------------
+        const formData = new FormData();
+        
+        // Clean panch data by removing photoFile before stringifying
+        const panchDataForJson = cleanForm.panch.map(p => {
+            const { photoFile, ...panchWithoutFile } = p;
+            return panchWithoutFile;
+        });
+        
+        // Add form data as JSON string
+        formData.append('panch', JSON.stringify(panchDataForJson));
+        
+        // Add all other form fields
+        Object.keys(cleanForm).forEach(key => {
+            if (key !== 'panch') {
+                // Serialize objects to JSON strings
+                if (typeof cleanForm[key] === 'object' && cleanForm[key] !== null) {
+                    formData.append(key, JSON.stringify(cleanForm[key]));
+                } else {
+                    formData.append(key, cleanForm[key]);
+                }
+            }
+        });
+        
+        // Add panch photos
+        form.panch.forEach((panch, index) => {
+            if (panch.photoFile) {
+                formData.append('panchPhotos', panch.photoFile);
+            }
+        });
+
+        // -----------------------------
         // SEND TO API
         // -----------------------------
         const res = await fetch(
             `http://localhost:5000/api/pedhinamu/form/${id}`,
             {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(cleanForm)
+                body: formData
             }
         );
 
@@ -729,6 +762,61 @@ export default function FullForm() {
                                 />
                             </FormControl>
                         </HStack>
+
+                        {/* PHOTO UPLOAD */}
+                        <FormControl mt={4}>
+                            <FormLabel fontWeight="600">પંચની ફોટો</FormLabel>
+                          <Input
+  type="file"
+  accept="image/*"
+  capture="environment"   // 📸 Mobile camera
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      updatePanch(i, "photoFile", file);
+
+      // preview ke liye
+      updatePanch(i, "photoPreview", URL.createObjectURL(file));
+    }
+  }}
+  sx={{
+    "::file-selector-button": {
+      height: 10,
+      padding: "0 10px",
+      borderRadius: "6px",
+      backgroundColor: "#2A7F62",
+      color: "white",
+      border: "none",
+      cursor: "pointer",
+      marginRight: "10px"
+    }
+  }}
+/>
+
+                           {p.photoPreview && (
+  <Box mt={3}>
+    <img
+      src={p.photoPreview}
+      alt="Panch Photo"
+      style={{
+        width: "120px",
+        height: "120px",
+        objectFit: "cover",
+        borderRadius: "8px",
+        border: "1px solid #ccc"
+      }}
+    />
+  </Box>
+)}
+
+<CameraCapture
+  onCapture={(file) => {
+    updatePanch(i, "photoFile", file);
+    updatePanch(i, "photoPreview", URL.createObjectURL(file));
+  }}
+/>
+
+                        </FormControl>
                     </Box>
                 ))}
 

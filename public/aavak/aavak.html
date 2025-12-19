@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8" />
+<title>આવક પંચ પ્રમાણે વિગત</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap');
+    
+    body {
+        font-family: "Noto Sans Gujarati", sans-serif;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 11px;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 4px;
+    }
+    th {
+        background: #f2f2f2;
+        font-weight: bold;
+    }
+    .rotate {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        white-space: nowrap;
+    }
+    h2, h3 {
+        text-align: center;
+        margin: 5px 0;
+        padding: 6px;
+    }
+    @media print {
+        body { margin: 10px; }
+        table { font-size: 10px; }
+    }
+</style>
+</head>
+
+<body>
+
+<h3>વડસર ગ્રામ પંચાયત હિસાબનો નમૂનો – નંબર ૬ (નાણાંનું વર્ગીકરણ રજીસ્ટર નિયમ - ૫)</h3>
+
+<h3>ગ્રામ નગર પંચાયત સને {{yearRange}} ના <h3> {{dateRange}} મહિનામાં આવેલા નાણાંનું વર્ગીકરણ રજીસ્ટર</h3> 
+</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">ક્રમ</th>
+            <th rowspan="2">બજેટ ખાતા નું નામ </th>
+            <th colspan="31">બજેટ ખાતા નું નામ</th>
+            <th rowspan="2" class="rotate">ચાલુ માસ ની કુલ રકમ</th>
+            <th rowspan="2" class="rotate">ગત માસ સુધી ની કુલ રકમ</th>
+            <th rowspan="2">કુલ રકમ</th>
+        </tr>
+       <tr>
+    <th>૧</th><th>૨</th><th>૩</th><th>૪</th><th>૫</th>
+    <th>૬</th><th>૭</th><th>૮</th><th>૯</th><th>૧૦</th>
+
+    <th>૧૧</th><th>૧૨</th><th>૧૩</th><th>૧૪</th><th>૧૫</th>
+    <th>૧૬</th><th>૧૭</th><th>૧૮</th><th>૧૯</th><th>૨૦</th>
+
+    <th>૨૧</th><th>૨૨</th><th>૨૩</th><th>૨૪</th><th>૨૫</th>
+    <th>૨૬</th><th>૨૭</th><th>૨૮</th><th>૨૯</th><th>૩૦</th>
+    <th>૩૧</th>
+</tr>
+
+    </thead>
+    
+    <tbody>
+        {{tableRows}}
+    </tbody>
+</table>
+
+
+
+<div style="height: 40px;"></div>
+<hr style="margin: 20px 0; border: 0; border-top: 2px dashed #000;">
+
+
+
+
+</body>
+</html>

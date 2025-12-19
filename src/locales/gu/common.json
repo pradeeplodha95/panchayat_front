@@ -11,7 +11,7 @@
     "settings": "સેટિંગ્સ",
     "logout": "લૉગઆઉટ",
     "mukhyaDetails": "મુખિયાની માહિતી",
-    "name": "નામ",
+    
     "birthDate": "જન્મ તારીખ",
     "surname": "અટક",
     "age": "ઉંમર",
@@ -173,6 +173,79 @@
     "hideSpouse": "પરિવાર છુપાવો",
     "childSpouseDetails": "પરિવારની માહિતી",
     "grandchildren": "પૌત્ર / પૌત્રી",
+
+   
+  "cashmel": "રોકડ મેડ",
+  "cardCashmelText": "રોકડ મેળ સંબંધિત તમામ કાર્ય અહીં સંચાલિત કરો",
+  "rojmel": "રોજમેળ",
+
+  "cashMelForm": "રોકડ નોંધ ફોર્મ",
+  "entryDetails": "એન્ટ્રી વિગત",
+
+  "date": "તારીખ",
+  "receiptPaymentNo": "રસીદ / ચુકવણી નંબર",
+    "name": "નામ",
+    "giverandrecipient":"આપનાર તથા લેનાર નું નામ ",
+
+  "vyavharType": "વ્યવહાર પ્રકાર",
+  "selectCategory": "કેટેગરી પસંદ કરો",
+  "addcategory":"કેટેગરી ઉમેરો ",
+  "amount":"રકમ",
+  "submit":"ઉમેરો",
+
+  "aavak": "આવક",
+  "makaanVara": "મકાન વેરો",
+  "bijliVerashe": "વીજળી વેરો",
+  "paniVero": "પાણી વેરો",
+  "khasPaniVero": "ખાસ પાણી વેર",
+  "safaiVero": "સફાઈ વેરો",
+  "octroiGrant": "ઓકટ્રોય ગ્રાન્ટ",
+  "talukaPanchayatFund": "તાલુકા પંચાયત સ્વ ભંડોળ",
+  "sadbhaavnaFund": "સદભાવના ફંડ",
+
+  "javak": "જાવક",
+  "smsCharge": "એસ.એમ.એસ. ચાર્જ",
+  "employeeSalary": "કર્મચારી પગાર",
+  "chequeBookCharge": "ચેક બુક ચાર્જ",
+  "paverBlock": "પેવર બ્લોક",
+  "waterWorksMaintenance": "વોટર વર્કસ નિભાવણી",
+  "sadbhaavnaFundCCRoad": "સદભાવના ફંડ સી.સી. રોડ",
+  "safaiKharch": "સફાઈ ખર્ચ",
+  "stationaryKharch": "સ્ટેશનરી ખર્ચ",
+
+
+
+
+  "cashmelDetails": "રોકડ નોંધ વિગતો",
+  "goBack": "પાછા જાઓ",
+  "totalEntries": "કુલ એન્ટ્રીઓ",
+  "searchPlaceholder": "નામ, વિવર અથવા રશીદ નંબર શોધો...",
+  "filterAll": "બધા",
+  
+  
+
+  "receiptNo": "રશીદ/નં",
+ 
+  "category": "કેટેગરી",
+ 
+  "action": "ક્રિયા",
+ 
+ "updateError": "અપડેટ નિષ્ફળ!",
+  "loadEntryError": "એન્ટ્રી લોડ કરવામાં અસમર્થ!",
+  "deleteSuccess": "ડિલીટ થઈ ગયું!",
+  "deleteError": "ડિલીટ કરતી વખતે ભૂલ!",
+  
+  "updateCashmel": "રોકડ નોંધ અપડેટ",
+  "saveChanges": "ફેરફારો સાચવો",
+  "noData": "ડેટા મળ્યો નથી",
+"all":"બધા",
+  "fieldDate": "તારીખ",
+  "fieldName": "નામ",
+  "fieldReceiptPaymentNo": "રશીદ/પેમેન્ટ નંબર",
+  "fieldVyavharType": "વ્યવહાર પ્રકાર",
+  "fieldCategory": "વિવર",
+  "fieldAmount": "રકમ",
+
     "createPedhinamu": "નવું પેઢીનામું બનાવો",
     "createPedhinamuDesc": "અહીંથી નવું પેઢીનામું બનાવવાનું શરૂ કરો",
     "viewPedhinamu": "પેઢીનામું જુઓ",
@@ -192,3 +265,4 @@
     "updateSuccess": "માહિતી સફળતાપૂર્વક સુધારાઈ",
     "noDeceasedFound": "કુટુંબમાં કોઈ મૃત્યુ પામેલ સભ્ય મળ્યો નથી"
 }
+

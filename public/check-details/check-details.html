@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8" />
+<title>ચેક ઇસ્યુ રજીસ્ટર</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap');
+
+body {
+    font-family: "Noto Sans Gujarati", sans-serif;
+    margin: 20px;
+    color: #000;
+}
+
+h3, h4 {
+    text-align: center;
+    margin: 4px 0;
+    font-weight: 700;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 4px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+th {
+    background: #f2f2f2;
+    font-weight: 700;
+}
+
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+@media print {
+    body { margin: 10px; }
+    table { font-size: 9px; }
+}
+</style>
+</head>
+
+<body>
+
+<h3>
+    સને {{yearRange}} ની તારીખ {{dateRange}} વર્ષનું ચેક ઇસ્યુ રજીસ્ટર
+</h3>
+
+<h3>
+    વડસર ગ્રામ પંચાયત, તાલુકો : ગાંધીનગર, જિલ્લો : ગાંધીનગર
+</h3>
+
+<br>
+
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th style="width:4%;">ક્રમ</th>
+            <th style="width:10%;">તારીખ</th>
+            <th style="width:12%;">ચેક નં</th>
+            <th style="width:12%;">ચેકની રકમ</th>
+            <th style="width:12%;">વાઉચર નંબર</th>
+            <th style="width:25%;">કયા પક્ષકારની તરફેણમાં ચેક લખ્યો</th>
+            <th style="width:25%;">બીલની વિગત</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{rows}}
+    </tbody>
+</table>
+</div>
+
+</body>
+</html>

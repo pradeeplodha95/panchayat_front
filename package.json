@@ -15,16 +15,20 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@xyflow/react": "^12.10.0",
-    "d3": "^7.9.0",
+    
     "dagre": "^0.8.5",
+    "d3": "^7.9.0",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.23.24",
     "i18next": "^25.6.3",
     "react": "^19.2.0",
+    "react-datepicker": "^9.0.0",
     "react-dom": "^19.2.0",
     "react-i18next": "^16.3.5",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.6",
     "react-zoom-pan-pinch": "^3.7.0"
+    
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

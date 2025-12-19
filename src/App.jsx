@@ -26,52 +26,66 @@
 // }
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Auth
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
+// Core
 import Dashboard from "./pages/Dashboard";
+import AdminPanel from "./pages/AdminPanel";
 
-// NEW SCREEN
+// Pedhinamu
 import PedhinamuHome from "./pages/PedhinamuHome";
-
-import Pedhinamu from "./pages/Pedhinamu";            // Create / Edit
+import Pedhinamu from "./pages/Pedhinamu";
 import FullForm from "./pages/FullForm";
+import PedhinamuList from "./pages/PedhinamuList";
+import PedhinamuView from "./pages/PedhinamuView";
 
-import PedhinamuList from "./pages/PedhinamuList";   // View list
-import PedhinamuView from "./pages/PedhinamuView";   // Tree structure
-
+// Records
 import Records from "./pages/Records";
 import RecordView from "./pages/RecordView";
+
+// CashMel
+import CashMelForm from "./pages/CashMelForm";
+import CashMelDetails from "./pages/CashMelDetails";
+import CashMelView from "./pages/CashMelView";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Core */}
+        {/* Auth Routes */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+        {/* Core */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<AdminPanel />} />
 
-        {/* NEW MIDDLE SCREEN */}
+        {/* Pedhinamu Flow */}
         <Route path="/pedhinamu" element={<PedhinamuHome />} />
-
-        {/* Create new */}
         <Route path="/pedhinamu/create" element={<Pedhinamu />} />
-
-        {/* Edit existing */}
         <Route path="/pedhinamu/edit/:id" element={<Pedhinamu />} />
-
-        {/* View Tree Structure */}
+        <Route path="/pedhinamu/list" element={<PedhinamuList />} />
         <Route path="/pedhinamu/view/:id" element={<PedhinamuView />} />
-
-        {/* Full form */}
         <Route path="/pedhinamu/form/:id" element={<FullForm />} />
 
-        {/* List */}
-        <Route path="/pedhinamu/list" element={<PedhinamuList />} />
-
-        {/* Certificate Pages */}
+        {/* Records */}
         <Route path="/records" element={<Records />} />
         <Route path="/records/view/:id" element={<RecordView />} />
+
+        {/* CashMel */}
+        <Route path="/cashmelform" element={<CashMelForm />} />
+        <Route path="/cashmel/details" element={<CashMelDetails />} />
+        <Route path="/cashmel/details/:id" element={<CashMelDetails />} />
+        <Route path="/cashmel/view/:id" element={<CashMelView />} />
 
       </Routes>
     </BrowserRouter>

@@ -15,13 +15,18 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useApiFetch } from "../utils/api";
+import PaymentPopup from "../components/PaymentPopup";
 
 export default function RecordView() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const apiFetch = useApiFetch();
 
     const [data, setData] = useState(null);
+    const [userStatus, setUserStatus] = useState(null);
+    const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -29,7 +34,20 @@ export default function RecordView() {
             const json = await res.json();
             setData(json);
         })();
+
+        fetchUserStatus();
     }, []);
+
+    const fetchUserStatus = async () => {
+        try {
+            const { response, data } = await apiFetch("http://localhost:5000/api/register/user/status");
+            if (response.ok) {
+                setUserStatus(data.user);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     if (!data) return <Text p={10}>{t("loading")}</Text>;
 
@@ -269,22 +287,53 @@ ${isDead ? `
     `;
     }
 
-    const handlePedhinamuPrint = async () => {
-        try {
-            const response = await fetch("/pedhinamu/pedhinamu.html");
-            let htmlTemplate = await response.text();
+  const handlePedhinamuPrint = async () => {
+  try {
+    // 🔴 FIRST increment & check limit
+const res = await apiFetch(
+  "http://localhost:5000/api/register/user/increment-print",
+  { method: "POST" }
+);
+
+if (!res.data.canPrint) {
+  setShowPaymentPopup(true);
+  return;
+}
+
+
+
+    // ✅ Only allowed prints reach here
+    const response2 = await fetch("/pedhinamu/pedhinamu.html");
+    let htmlTemplate = await response2.text();
+
 
             const { pedhinamu, form } = data;
 
             /* -----------------------------------------
                BASIC PLACEHOLDER REPLACEMENTS
             ----------------------------------------- */
+
+            const rawDeathDate =
+    pedhinamu?.mukhya?.dodDisplay ||
+    pedhinamu?.mukhya?.dod ||
+    pedhinamu?.mukhya?.deathDate ||
+    pedhinamu?.mukhya?.dateOfDeath ||
+    pedhinamu?.mukhya?.death_date ||
+    "";
             const replacements = {
                 applicantName: form?.applicantName || "",
                 mukkamAddress: form?.mukkamAddress || "",
                 talatiName: form?.talatiName || "",
                 javadNo: form?.javadNo || "",
                 totalHeirsCount: form?.totalHeirsCount || "",
+
+                 mukhyoName: pedhinamu?.mukhya?.name || "",
+
+     deathDate:
+        pedhinamu?.mukhya?.isDeceased && pedhinamu?.mukhya?.dodDisplay
+            ? formatDateToGujarati(pedhinamu.mukhya.dodDisplay)
+            : "",
+           
 
                 //  REQUIRED FOR સંદર્ભ 
                 notarySerialNo: form?.notarySerialNo || "",
@@ -306,6 +355,9 @@ ${isDead ? `
 
                 applicantMobile: formatMobile(form?.applicantMobile),
                 applicantAadhaar: formatAadhaar(form?.applicantAadhaar),
+                applicantPhotoHtml: form?.applicantPhoto 
+                    ? `<img src="http://localhost:5000${form.applicantPhoto}" style="width:120px; height:140px; object-fit:cover; border:1px solid #ccc;" />` 
+                    : '<div class="placeholder-photo"></div>',
 
                 //  DEFAULT TALUKA / JILLA 
                 talukaName: form?.talukaName?.trim()
@@ -317,6 +369,7 @@ ${isDead ? `
                     : "ગાંધીનગર",
             };
 
+ 
 
             Object.entries(replacements).forEach(([key, value]) => {
                 htmlTemplate = htmlTemplate.replace(
@@ -451,7 +504,7 @@ ${isDead ? `
             <table style="margin-bottom: 40px;">
                 <tr>
                     <td rowspan="5" style="width:130px;">
-                        <div class="placeholder-photo"></div>
+                        ${p.photo ? `<img src="http://localhost:5000${p.photo}" style="width:120px; height:120px; object-fit:cover; border:1px solid #ccc;" />` : '<div class="placeholder-photo"></div>'}
                     </td>
                     <td><b>પંચનું નામ :</b> ${p.name}</td>
                 </tr>
@@ -563,16 +616,15 @@ ${isDead ? `
             /* -----------------------------------------
                PRINT WINDOW
             ----------------------------------------- */
-            const printWindow = window.open("", "_blank", "width=1000,height=1200");
-            printWindow.document.open();
-            printWindow.document.write(htmlTemplate);
-            await printWindow.document.fonts.ready;
-            printWindow.document.close();
-        } catch (err) {
-            console.error("PRINT ERROR:", err);
-        }
-    };
+             const printWindow = window.open("", "_blank", "width=1000,height=1200");
+    printWindow.document.write(htmlTemplate);
+    await printWindow.document.fonts.ready;
+    printWindow.document.close();
 
+  } catch (err) {
+    console.error("PRINT ERROR:", err);
+  }
+};
     return (
         <Box bg="#F8FAF9" minH="100vh" p={10}>
             <Flex justify="space-between" mb={5}>
@@ -796,13 +848,30 @@ ${isDead ? `
                                     shadow="sm"
                                     bg="#FFFDF5"
                                 >
-                                    <Text fontSize="lg" fontWeight="600">{p.name}</Text>
-
-                                    <Divider my={2} />
-
-                                    <Text><b>{t("age")}:</b> {p.age}</Text>
-                                    <Text><b>{t("mobile")}:</b> {displayMobile(p.mobile)}</Text>
-                                    <Text><b>{t("occupation")}:</b> {p.occupation || "-"}</Text>
+                                    <HStack spacing={4} align="start">
+                                        {p.photo && (
+                                            <Box>
+                                                <img 
+                                                    src={`http://localhost:5000${p.photo}`} 
+                                                    alt={`Panch ${p.name}`}
+                                                    style={{ 
+                                                        width: '80px', 
+                                                        height: '80px', 
+                                                        objectFit: 'cover', 
+                                                        borderRadius: '8px',
+                                                        border: '1px solid #ccc'
+                                                    }} 
+                                                />
+                                            </Box>
+                                        )}
+                                        <Box flex="1">
+                                            <Text fontSize="lg" fontWeight="600">{p.name}</Text>
+                                            <Divider my={2} />
+                                            <Text><b>{t("age")}:</b> {p.age}</Text>
+                                            <Text><b>{t("mobile")}:</b> {displayMobile(p.mobile)}</Text>
+                                            <Text><b>{t("occupation")}:</b> {p.occupation || "-"}</Text>
+                                        </Box>
+                                    </HStack>
                                 </Box>
                             ))}
                         </SimpleGrid>
@@ -813,6 +882,12 @@ ${isDead ? `
                     </Text>
                 )}
             </Box>
+
+            <PaymentPopup
+                isOpen={showPaymentPopup}
+                onClose={() => setShowPaymentPopup(false)}
+                type="print"
+            />
         </Box>
     );
-}
+    }

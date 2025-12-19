@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8" />
+<title>નમૂનો નં. ૫ સામાન્ય રોકડમેળ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap');
+
+body {
+    font-family: "Noto Sans Gujarati", sans-serif;
+    margin: 20px;
+    color: #000;
+}
+
+h3, h4 {
+    text-align: center;
+    margin: 4px 0;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9px;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 2px 4px;
+    vertical-align: middle;
+    text-align: center;
+    min-width: 40px;
+}
+
+th {
+    background: #f2f2f2;
+    font-weight: 700;
+}
+
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+.summary {
+    font-weight: bold;
+    background: #e8e8e8;
+}
+
+.daily-total {
+    font-weight: bold;
+    background: #f2f2f2;
+}
+
+.opening-balance {
+    font-weight: bold;
+    background: #d8d8d8;
+}
+
+.footer-section {
+    margin-top: 30px;
+}
+
+.footer-table {
+    width: 100%;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+.footer-table th, .footer-table td {
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+}
+
+@media print {
+    body { margin: 10px; }
+    table { font-size: 8px; }
+}
+</style>
+</head>
+
+<body>
+
+<h3>નમૂનો નં. ૫ સામાન્ય રોકડમેળ</h3>
+<h4>ગુજરાત રાજયના પંચાયતના સુધારેલા નિયમ ૫ મુજબ</h4>
+<h3>વડસર  પંચાયતનો સને {{yearRange}} ની તારીખ {{dateRange}} ના રોજ નો સામાન્ય રોકડમેળ</h3>
+<h4 style="text-align: right; margin-right: 20px;">ઉધાર</h4>
+
+<div class="table-wrapper">
+<table border="1" cellspacing="0" cellpadding="3">
+  <thead>
+
+    <!-- ROW 1: Main headers -->
+    <tr>
+      <th rowspan="3">પાવતી નં.</th>
+      <th colspan="{{totalIncomeCols}}">રકમ આવી તેની વિગત</th>
+      <th rowspan="3">કુલ રકમ</th>
+      <th rowspan="3">ચેક નં.</th>
+      <th rowspan="3">વાઉચર નં.</th>
+      <th colspan="2">નાણાં આપ્યાની વિગત</th>
+      
+      <th rowspan="3">ખાતાનું મઠાડું</th>
+      <th rowspan="3">કુલ રકમ</th>
+    </tr>
+
+    <!-- ROW 2: Sub headers -->
+    <tr>
+      <th rowspan="2">કોના તરફથી આવી</th>
+      <th colspan="{{incomeColspan}}">શા ખાતે મળ્યા</th>
+      <th rowspan="2">કોને આપ્યા</th>
+      <th rowspan="2">શા બાબતના આપ્યા</th>
+      <!-- <th colspan="2">સી.સી.ડી ખર્ચ</th> -->
+    </tr>
+
+    <!-- ROW 3: Dynamic income category headers -->
+    <tr>
+      {{incomeHeaders}}
+      <!-- <th>સી.સી.ડી ખર્ચ</th>
+      <th>કામ</th> -->
+    </tr>
+
+  </thead>
+
+  <tbody>
+    {{tableRows}}
+  </tbody>
+</table>
+</div>
+
+<!-- તપસીલ Section -->
+<div class="footer-section">
+    <h3 style="text-align: left; margin: 20px 0 10px 0;">તપસીલ  : -</h3>
+    <table class="footer-table" border="1" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr>
+                <th>અ. નં.</th>
+                <th>ખાતા નું નામ</th>
+                <th>ઉઘડતી સિલક</th>
+                <th>આવક</th>
+                <th>જાવક</th>
+                <th>બંધ સિલક</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{accountTransferRows}}
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

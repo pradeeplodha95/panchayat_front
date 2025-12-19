@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8" />
+<title>તરીજ પત્રક</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap');
+    
+    body {
+        font-family: "Noto Sans Gujarati", sans-serif;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 6px;
+        text-align: left;
+    }
+    th {
+        background: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .text-center {
+        text-align: center;
+    }
+    h2, h3 {
+        text-align: center;
+        margin: 5px 0;
+        padding: 6px;
+    }
+    .summary-box {
+        margin-top: 20px;
+        border: 2px solid #000;
+        padding: 15px;
+    }
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px dashed #999;
+    }
+    .summary-row:last-child {
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    @media print {
+        body { margin: 10px; }
+        table { font-size: 11px; }
+    }
+</style>
+</head>
+
+<body>
+
+<h2>પંચાયતના હિસાબનો નમૂનો – ૩</h2>
+<h3>પંચાયત આવક – જાવકનો વાર્ષિક તરીજ ૨૦૨૩-૨૦૨૪ નો હિસાબ</h3>
+<h3>વડસર ગ્રામ પંચાયત, તાલુકો : ગાંધીનગર, જિલ્લો : ગાંધીનગર</h3>
+<h3>માસ: {{dateRange}}</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 8%;">ક્રમ નં.</th>
+            <th style="width: 42%;">આવકનો વિગત</th>
+            <th style="width: 15%;" class="text-right">રકમ</th>
+            <th style="width: 8%;">ક્રમ નં.</th>
+            <th style="width: 42%;">જાવકનો વિગત</th>
+            <th style="width: 15%;" class="text-right">રકમ</th>
+        </tr>
+        <tr> 
+            
+            <th style="width: 8%;"></th>
+            <th style="width: 42%;">ઉઘડતી શિલક</th>
+            <th style="width: 15%;" class="text-right">{{openingBalance}}</th>
+            <th style="width: 8%;"></th>
+            <th style="width: 42%;"></th>
+            <th style="width: 15%;" class="text-right"> </th>
+
+            
+        </tr>
+    </thead>
+    <tbody>
+       
+        {{tableRows}}
+           <tr> 
+            
+            <th style="width: 8%;"></th>
+            <th style="width: 42%;">કુલ આવક :- </th>
+            <th style="width: 15%;" class="text-right"> {{totalAavak}} </th>
+            <th style="width: 8%;"></th>
+            <th style="width: 42%;">  કુલ જાવક : </th>
+            <th style="width: 15%;" class="text-right"> {{totalJavak}} </th>
+
+            
+        </tr>
+    </tbody>
+</table>
+
+<table style="margin-top: 10px;">
+    <thead>
+        <tr>
+            <th style="width:25%;"> ઉઘડતી શિલક </th>
+            <th style="width:25%;" class="text-right"> {{openingBalance}} </th>
+            
+            
+            <th style="width:25%;"> કુલ રકમ </th>
+            <th style="width:25%;" class="text-right"> {{totalWithOpening}} </th>
+            
+        </tr>
+    
+    </thead>
+    <tbody>
+       
+        
+           <tr>   
+            <th style="width: 25%;">કુલ આવક :- </th>
+            <th style="width: 25%;" class="text-right"> {{totalAavak}} </th>    
+         
+            <th style="width: 25%;">  કુલ જાવક :- </th>
+            <th style="width: 25%;" class="text-right"> {{totalJavak}} </th>    
+        </tr>
+
+             <tr>   
+            <th style="width: 25%;">  કુલ રકમ </th>
+            <th style="width: 25%;" class="text-right">  {{totalWithOpening}} </th>    
+         
+            <th style="width: 25%;">  બંધ શિલક </th>
+            <th style="width: 25%;" class="text-right"> {{closingBalance}} </th>    
+        </tr>
+
+    </tbody>
+</table>
+
+<!-- 🔵 NEW UPDATED SUMMARY BOX -->
+<!-- <div class="summary-box">
+    <div class="summary-row">
+        <span>ઉઘડતી શિલક :-</span>
+        <span>{{openingBalance}}</span>
+    </div>
+
+    <div class="summary-row">
+        <span>કુલ આવક :-</span>
+        <span>{{totalAavak}}</span>
+    </div>
+
+    <div class="summary-row">
+        <span>કુલ રકમ (ઉઘડતી + આવક) :-</span>
+        <span>{{totalWithOpening}}</span>
+    </div>
+
+    <div class="summary-row">
+        <span>કુલ જાવક :-</span>
+        <span>{{totalJavak}}</span>
+    </div>
+
+    <div class="summary-row">
+        <span>બંધ શિલક :-</span>
+        <span>{{closingBalance}}</span>
+    </div>
+</div> -->
+
+<div style="margin-top: 40px;">
+    <table style="border: none;">
+        <tr>
+            <td style="border: none; width: 50%;">
+                <p>તલાટીની સહી: _____________________</p>
+            </td>
+            <td style="border: none; width: 50%; text-align: right;">
+                <p>સરપંચની સહી: _____________________</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

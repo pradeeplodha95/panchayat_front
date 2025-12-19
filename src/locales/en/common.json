@@ -1,6 +1,6 @@
 {
-    "appName": "Vadsar Gram Panchayat",
-    "digitalPortal": "Digital Portal",
+      "appName": "Vadsar Gram Panchayat",
+      "digitalPortal": "Digital Portal",
     "login": "Login",
     "username": "Username",
     "password": "Password",
@@ -11,7 +11,7 @@
     "settings": "Settings",
     "logout": "Logout",
     "mukhyaDetails": "Main Person Details",
-    "name": "Name",
+  
     "birthDate": "Birth Date",
     "surname": "Surname",
     "age": "Age",
@@ -108,7 +108,7 @@
     "enterApplicantName": "Enter applicant name",
     "enterApplicantSurname": "Enter applicant surname",
     "panchNameMissing": "Panch name missing",
-    "panchMobileInvalid": "Invalid Panch mobile",
+    "panchMobileInvalid": "Invalid Panch        ",
     "panchAadhaarInvalid": "Invalid Panch Aadhaar",
     "enterDeceasedName": "Enter deceased person's name",
     "enterDeceasedDate": "Enter date of death",
@@ -190,5 +190,42 @@
     "spouseRelationRequired": "Please select relation for spouse",
     "grandchildRelationRequired": "Please select relation for grandchild",
     "updateSuccess": "Updated successfully",
-    "noDeceasedFound": "No deceased members found in the family"
+    "noDeceasedFound": "No deceased members found in the family",
+
+
+   
+  
+  "cardCashmelText": "Manage all Cashmel related work",
+
+  "cashMelForm": "Cash Mel No Form",
+  "entryDetails": "Entry Details",
+
+  "date": "Date",
+    "name": "Name",
+  "receiptPaymentNo": "Receipt / Payment No.",
+  "vyavharType": "Transaction Type",
+  "selectCategory": "Select Category",
+  "addcategory":"add category",
+  "amount":"amount",
+  "submit":"add",
+
+  "aavak": "Income",
+  "makaanVara": "House Tax",
+  "bijliVerashe": "Electricity Tax",
+  "paniVero": "Water Tax",
+  "khasPaniVero": "Special Water Tax",
+  "safaiVero": "Cleaning Tax",
+  "octroiGrant": "Octroi Grant",
+  "talukaPanchayatFund": "Taluka Panchayat Fund",
+  "sadbhaavnaFund": "Sadbhaavna Fund",
+
+  "javak": "Expense",
+  "smsCharge": "SMS Charges",
+  "employeeSalary": "Employee Salary",
+  "chequeBookCharge": "Cheque Book Charges",
+  "paverBlock": "Paver Block",
+  "waterWorksMaintenance": "Water Works Maintenance",
+  "sadbhaavnaFundCCRoad": "Sadbhaavna Fund C.C. Road",
+  "safaiKharch": "Cleaning Expense",
+  "stationaryKharch": "Stationery Expense"
 }
